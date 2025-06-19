@@ -7,174 +7,789 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <base href="/portfolio/">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      scroll-behavior: smooth;
+    }
+    
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
     }
+    
+    /* Enhanced Hero Background */
     .bg-hero {
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.9) 0%, 
+        rgba(147, 51, 234, 0.8) 50%, 
+        rgba(239, 68, 68, 0.7) 100%),
         url('https://images.unsplash.com/photo-1498050108023-c5249f4df085') no-repeat center center/cover;
+      position: relative;
     }
+    
+    .bg-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(120, 119, 198, 0.3), transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3), transparent 50%);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+    
+    /* Glassmorphism Cards */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .glass-card:hover {
+      background: rgba(255, 255, 255, 0.35);
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* Enhanced Animations */
     .fade-in {
-      animation: fadeIn 2s ease-in forwards;
+      animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    
+    @keyframes fadeInUp {
+      0% { 
+        opacity: 0; 
+        transform: translateY(60px) scale(0.95); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
     }
+    
     .section-card {
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      animation: fadeUp 1.2s ease-in-out both;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: slideInUp 0.8s ease-out both;
+      position: relative;
+      overflow: hidden;
     }
+    
+    .section-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .section-card:hover::before {
+      left: 100%;
+    }
+    
     .section-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    @keyframes slideInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(50px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
     }
+    
+    /* Skill Cards with Gradient Borders */
+    .skill-card {
+      position: relative;
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 2px;
+      border-radius: 12px;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: xor;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .skill-card:hover::before {
+      opacity: 1;
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Enhanced Typography */
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.2;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.125rem !important;
+      }
+      
+      .section-padding {
+        padding: 2rem 1rem !important;
+      }
+      
+      .mobile-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+      }
+      
+      .project-video {
+        max-height: 250px;
+        object-fit: cover;
+      }
+    }
+    
+    /* Smooth Scroll Indicators */
+    .scroll-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(59, 130, 246, 0.2);
+      z-index: 1000;
+    }
+    
+    .scroll-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+    
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      cursor: pointer;
+    }
+    
+    .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
+    }
+    
+    /* Enhanced Project Cards */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+     html, body {
+    overflow-x: hidden;
+  
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Optional: Contain hover scale animations */
+  .skill-card:hover {
+    z-index: 10;
+  }
+
+  /* Smooth scaling */
+  .skill-card {
+    transition: transform 0.3s ease;
+  }
+
+    body::-webkit-scrollbar {
+    display: none;
+  }
+
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-progress" id="scrollProgress"></div>
+  </div>
 
-  <!-- Hero -->
-  <section class="bg-hero text-white py-24 text-center fade-in">
-    <h1 class="text-5xl font-bold mb-4">Joshua Vimal Raj R</h1>
-    <p class="text-xl">Front-End Developer | Angular Specialist</p>
-    <p class="mt-4">Tirunelveli, Tamil Nadu | <a href="mailto:joshuagenius2001@gmail.com" class="underline">Email Me</a></p>
-  </section>
+  <!-- Floating Action Button -->
+  <div class="fab" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </div>
 
-  <!-- About -->
-  <section class="p-10 max-w-5xl mx-auto" data-aos="fade-up">
-    <h2 class="text-3xl font-semibold mb-4 text-center">About Me</h2>
-    <p class="text-lg text-gray-700 text-center">
-      Skilled Front-End Developer specializing in Angular. Passionate about building scalable, responsive, and user-friendly apps.
-      Experienced with third-party integration, automation, and modern cloud services.
-    </p>
-  </section>
-
-  <!-- Skills -->
-  <section class="bg-gray-100 py-10" data-aos="fade-up">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl font-semibold mb-6 text-center">Skills</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
-        <div class="bg-white p-4 shadow rounded-lg text-center">Angular</div>
-        <div class="bg-white p-4 shadow rounded-lg text-center">TypeScript</div>
-        <div class="bg-white p-4 shadow rounded-lg text-center">JavaScript</div>
-        <div class="bg-white p-4 shadow rounded-lg text-center">HTML5/CSS3</div>
-        <div class="bg-white p-4 shadow rounded-lg text-center">Tailwind CSS</div>
-        <div class="bg-white p-4 shadow rounded-lg text-center">Java (OOPs)</div>
-        <div class="bg-white p-4 shadow rounded-lg text-center">AWS (S3, EC2, RDS)</div>
-        <div class="bg-white p-4 shadow rounded-lg text-center">NodeJS (Basics)</div>
-        <div class="bg-white p-4 shadow rounded-lg text-center">Unit & E2E Testing</div>
-        <div class="bg-white p-4 shadow rounded-lg text-center">Git</div>
+  <!-- Hero Section -->
+  <section class="bg-hero text-white py-16 md:py-24 text-center fade-in relative z-10">
+    <div class="container mx-auto px-4">
+      <div class="glass-card rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
+        <h1 class="hero-title text-4xl md:text-6xl font-bold mb-6 gradient-text">
+          Joshua Vimal Raj R
+        </h1>
+        <p class="hero-subtitle text-lg md:text-2xl mb-4 text-gray-100">
+          <i class="fas fa-code mr-2"></i>Front-End Developer | Angular Specialist
+        </p>
+        <p class="text-base md:text-lg text-gray-200 mb-6">
+          <i class="fas fa-map-marker-alt mr-2"></i>Tirunelveli, Tamil Nadu
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="mailto:joshuagenius2001@gmail.com" 
+             class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
+            <i class="fas fa-envelope mr-2"></i>Get In Touch
+          </a>
+          <a href="tel:+919025761741" 
+             class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
+            <i class="fas fa-phone mr-2"></i>Call Me
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-<!-- Experience -->
-<section class="p-10 max-w-5xl mx-auto" data-aos="fade-right">
-  <h2 class="text-3xl font-semibold mb-8 text-center text-gray-800">Experience</h2>
-
-  <!-- Centizen Inc Experience -->
-  <div class="bg-white shadow-lg rounded-lg p-6 section-card border border-gray-200">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-      <h3 class="text-2xl font-bold text-blue-700">Junior Developer at Centizen Inc.</h3>
-      <span class="text-sm text-gray-500 mt-2 md:mt-0">2023 – Present</span>
+  <!-- About Section -->
+  <section class="section-padding py-12 md:py-16" data-aos="fade-up">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
+        <i class="fas fa-user mr-3"></i>About Me
+      </h2>
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg section-card">
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
+          Skilled Front-End Developer specializing in <span class="font-semibold text-blue-600">Angular</span>. 
+          Passionate about building scalable, responsive, and user-friendly applications.
+          Experienced with third-party integration, automation, and modern cloud services.
+        </p>
+      </div>
     </div>
-    <ul class="list-disc pl-6 space-y-2 text-gray-700 text-base leading-relaxed">
-      <li><span class="font-medium text-gray-800">Spearheaded</span> front-end development of scalable storefront web applications using Angular & Angular Material</li>
-      <li><span class="font-medium text-gray-800">Translated</span> business requirements into interactive, user-focused features in collaboration with senior developers</li>
-      <li><span class="font-medium text-gray-800">Built</span> responsive dashboards and reusable component libraries for enterprise-scale use</li>
-      <li><span class="font-medium text-gray-800">Integrated</span> third-party tools (Google APIs, Razorpay, reCAPTCHA) for automation, interactivity, and application stability</li>
-      <li><span class="font-medium text-gray-800">Implemented</span> secure UPI-based checkout flows and multi-role user authentication</li>
-      <li><span class="font-medium text-gray-800">Used</span> Git for version control and agile collaboration with the team</li>
-      <li><span class="font-medium text-gray-800">Conducted</span> thorough unit testing and end-to-end testing, boosting application reliability and test coverage</li>
-      <li><span class="font-medium text-gray-800">Leveraged</span> AI-based tools to automate repetitive dev tasks, reducing delivery time and enhancing productivity</li>
-    </ul>
-  </div>
-</section>
+  </section>
 
-  <!-- Projects -->
-  <section class="bg-gray-100 py-10" data-aos="fade-up">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl font-semibold mb-6 text-center">Projects</h2>
-      <div class="grid md:grid-cols-2 gap-6 px-6">
-        <!-- Project 1 -->
-        <div class="bg-white p-6 shadow-lg rounded-lg section-card">
-          <h3 class="text-xl font-bold mb-2">ZenBasket</h3>
-          <p>An e-commerce platform built using Angular and Material Design. I developed multiple modules for product listing, filtering, and cart operations, and integrated a secure checkout flow with UPI-based payments and multi-role authentication.</p>
+  <!-- Skills Section -->
+  <section class="bg-gradient-to-br from-blue-50 to-purple-50 py-12 md:py-16" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
+        <i class="fas fa-cogs mr-3"></i>Skills
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+        <div class="skill-card text-center">
+          <div class="font-semibold">Angular</div>
+        </div>
+        <div class="skill-card text-center">
+          <div class="font-semibold">TypeScript</div>
+        </div>
+        <div class="skill-card text-center">
+          <div class="font-semibold">JavaScript</div>
+        </div>
+        <div class="skill-card text-center">
+          <div class="font-semibold">HTML5/CSS3</div>
+        </div>
+        <div class="skill-card text-center">
+          <div class="font-semibold">Tailwind CSS</div>
+        </div>
+        <div class="skill-card text-center">
+          <div class="font-semibold">Java (OOPs)</div>
+        </div>
+        <div class="skill-card text-center">
+          <div class="font-semibold">AWS Cloud</div>
+        </div>
+        <div class="skill-card text-center">
+          <div class="font-semibold">NodeJS</div>
+        </div>
+        <div class="skill-card text-center">
+          <div class="font-semibold">Testing</div>
+        </div>
+        <div class="skill-card text-center">
+          <div class="font-semibold">Git</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="section-padding py-12 md:py-16" data-aos="fade-right">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
+        <i class="fas fa-briefcase mr-3"></i>Experience
+      </h2>
+
+      <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8 section-card border-l-4 border-blue-500">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
+          <div>
+            <h3 class="text-2xl md:text-3xl font-bold text-blue-700 mb-2">
+              <i class="fas fa-rocket mr-2"></i>Junior Developer
+            </h3>
+            <p class="text-lg text-gray-600 font-semibold">Centizen Inc.</p>
+          </div>
+          <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold mt-2 lg:mt-0">
+            2023 – Present
+          </span>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              <p class="text-gray-700"><span class="font-semibold">Spearheaded</span> front-end development of scalable storefront web applications using Angular & Angular Material</p>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              <p class="text-gray-700"><span class="font-semibold">Translated</span> business requirements into interactive, user-focused features</p>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              <p class="text-gray-700"><span class="font-semibold">Built</span> responsive dashboards and reusable component libraries</p>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              <p class="text-gray-700"><span class="font-semibold">Integrated</span> third-party tools (Google APIs, Razorpay, reCAPTCHA)</p>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              <p class="text-gray-700"><span class="font-semibold">Implemented</span> secure UPI-based checkout flows</p>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              <p class="text-gray-700"><span class="font-semibold">Used</span> Git for version control and agile collaboration</p>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              <p class="text-gray-700"><span class="font-semibold">Conducted</span> thorough unit testing and end-to-end testing</p>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              <p class="text-gray-700"><span class="font-semibold">Leveraged</span> AI-based tools to automate repetitive tasks</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="bg-gradient-to-br from-purple-50 to-pink-50 py-12 md:py-16" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
+        <i class="fas fa-project-diagram mr-3"></i>Featured Projects
+      </h2>
+      
+      <!-- Mobile: Single column, Desktop: 2 columns -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
+        <!-- Project 1: ZenBasket -->
+        <div class="project-card p-6 md:p-8 section-card">
+          <div class="flex items-center mb-4">
+            <i class="fas fa-shopping-cart text-3xl text-blue-600 mr-4"></i>
+            <h3 class="text-xl md:text-2xl font-bold">ZenBasket</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            An e-commerce platform built using Angular and Material Design. Developed multiple modules for product listing, filtering, and cart operations, with secure UPI-based payments and multi-role authentication.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Angular</span>
+            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Material UI</span>
+            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">UPI Integration</span>
+          </div>
         </div>
 
-        <!-- Project 2 -->
-        <div class="bg-white p-6 shadow-lg rounded-lg section-card">
-          <h3 class="text-xl font-bold mb-2">ZenStudio</h3>
-          <p>A drag-and-drop UI builder that allows users to create responsive page layouts. I implemented reusable UI components, dynamic form generation, and real-time preview functionality, enabling designers to work without touching code.</p>
+        <!-- Project 2: ZenStudio -->
+        <div class="project-card p-6 md:p-8 section-card">
+          <div class="flex items-center mb-4">
+            <i class="fas fa-paint-brush text-3xl text-purple-600 mr-4"></i>
+            <h3 class="text-xl md:text-2xl font-bold">ZenStudio</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            A drag-and-drop UI builder enabling users to create responsive page layouts. Implemented reusable UI components, dynamic form generation, and real-time preview functionality for designers.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Drag & Drop</span>
+            <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">UI Builder</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Real-time Preview</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full-width project showcases -->
+      <div class="space-y-8">
+        <!-- Cricket App Screenshot -->
+        <div class="project-card section-card" data-aos="zoom-in">
+          <div class="relative">
+            <img src="./assests/cricket-sign-up.png" 
+                 alt="Cricket App Screenshot" 
+                 class="w-full h-100 md:h-100 object-cover rounded-t-2xl">
+          </div>
+          <div class="p-6 md:p-8">
+            <h3 class="text-xl md:text-2xl font-bold mb-4 text-center">
+              <i class="fas fa-mobile-alt mr-2 text-green-600"></i>
+              Angular App – Create Account Page
+            </h3>
+            <p class="text-center text-gray-700 leading-relaxed">
+              Cricket-themed animated registration form using Angular. Features slider input, Google Pay UPI integration, 
+              modern field validation, and responsive design with seamless transitions.
+            </p>
+          </div>
         </div>
 
-        <!-- Cricket App UI -->
-        <div class="bg-white p-6 shadow-lg rounded-lg col-span-2 section-card" data-aos="zoom-in">
-          <img src="./cricket-sign-up.png" alt="App Screenshot" class="rounded mb-4 mx-auto">
-          <h3 class="text-xl font-bold mb-2 text-center">Angular App – Create Account Page</h3>
-          <p class="text-center">Cricket-themed animated registration form using Angular. Includes slider input, Google Pay UPI integration, modern field validation, and responsive design with seamless transitions.</p>
-        </div>
+        <!-- Video Demos -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+          <!-- Video 1 -->
+          <div class="project-card section-card" data-aos="fade-up">
+            <video controls autoplay="true"
+                   class="w-full project-video rounded-t-2xl"
+                   preload="metadata"
+                   poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280'%3ESign-Up Demo%3C/text%3E%3C/svg%3E">
+              <source src="./assests/cricket-sign-in.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="p-6">
+              <h3 class="text-lg md:text-xl font-bold mb-2 text-center">
+                <i class="fas fa-play-circle mr-2 text-red-600"></i>
+                Sign-Up Interaction Demo
+              </h3>
+              <p class="text-center text-gray-700 text-sm md:text-base">
+                Showcasing advanced animations, UPI options like Google Pay, and custom validation flows.
+              </p>
+            </div>
+          </div>
 
-        <!-- Video 1 -->
-        <div class="bg-white p-6 shadow-lg rounded-lg col-span-2 section-card" data-aos="fade-up">
-          <video controls autoplay muted loop class="rounded mx-auto mb-4 w-full max-w-3xl">
-            <source src="./cricket-sign-in.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <h3 class="text-xl font-bold mb-2 text-center">App Feature Demo – Sign-Up Interaction</h3>
-          <p class="text-center">Showcasing advanced animations, UPI options like Google Pay, and custom validation flows for smooth onboarding experience.</p>
-        </div>
-
-        <!-- Video 2 -->
-        <div class="bg-white p-6 shadow-lg rounded-lg col-span-2 section-card" data-aos="fade-up">
-          <video controls autoplay muted loop class="rounded mx-auto mb-4 w-full max-w-3xl">
-            <source src="./cricket-availble-contest.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <h3 class="text-xl font-bold mb-2 text-center">App Feature Demo – Animation Flow & Payment UI</h3>
-          <p class="text-center">Highlights Angular animations, payment integrations, and responsive handling with visually stunning transitions.</p>
+          <!-- Video 2 -->
+          <div class="project-card section-card" data-aos="fade-up">
+            <video controls 
+                   class="w-full project-video rounded-t-2xl"
+                   preload="metadata"
+                   poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280'%3EPayment UI Demo%3C/text%3E%3C/svg%3E">
+              <source src="./assests/cricket-availble-contest.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="p-6">
+              <h3 class="text-lg md:text-xl font-bold mb-2 text-center">
+                <i class="fas fa-credit-card mr-2 text-blue-600"></i>
+                 Created Contetst & Integrated Payment UPI 
+              </h3>
+              <p class="text-center text-gray-700 text-sm md:text-base">
+                Highlights Angular Materials, payment integrations, and responsive handling.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Web Design Showcase -->
-  <section class="py-10 max-w-6xl mx-auto px-6" data-aos="fade-up">
-    <h2 class="text-3xl font-semibold mb-6 text-center">Web Design Showcase</h2>
-    <div class="bg-white p-6 shadow-lg rounded-lg section-card">
-      <video controls autoplay muted loop class="rounded mx-auto mb-4 w-full max-w-3xl">
-        <source src="./my-designs.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <h3 class="text-xl font-bold mb-2 text-center">UI/UX Design Preview</h3>
-      <p class="text-center">This video displays elegant, responsive web designs crafted with animation, visual clarity, and a focus on mobile experience.</p>
+  <section class="section-padding py-12 md:py-16" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
+        <i class="fas fa-palette mr-3"></i>Web Design Showcase
+      </h2>
+      <div class="project-card section-card">
+        <video controls 
+               class="w-full h-64 md:h-96 object-cover rounded-t-2xl"
+               preload="metadata"
+               poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='24'%3EUI/UX Design Preview%3C/text%3E%3C/svg%3E">
+          <source src="./assests/my-designs.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="p-6 md:p-8">
+          <h3 class="text-xl md:text-2xl font-bold mb-4 text-center">
+            <i class="fas fa-desktop mr-2 text-indigo-600"></i>
+            My Sample Angular Designs Preview
+          </h3>
+          <p class="text-center text-gray-700 leading-relaxed">
+            Elegant, responsive web designs crafted with animation, visual clarity, and a focus on mobile experience. 
+            Showcasing modern design principles and user-centered interfaces.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Awards -->
-  <section class="p-10 max-w-5xl mx-auto" data-aos="fade-left">
-    <h2 class="text-3xl font-semibold mb-4 text-center">Awards</h2>
-    <ul class="list-disc list-inside text-center">
-      <li>Rising Star – First year recognition at Centizen Inc.</li>
-      <li>Best Employee of the Team – For exceptional performance</li>
-    </ul>
+  <!-- Awards Section -->
+  <section class="bg-gradient-to-r from-yellow-50 to-orange-50 py-12 md:py-16" data-aos="fade-left">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
+        <i class="fas fa-trophy mr-3"></i>Awards & Recognition
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-lg section-card text-center">
+          <i class="fas fa-star text-4xl text-yellow-500 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Rising Star</h3>
+          <p class="text-gray-700">First year recognition at Centizen Inc.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-lg section-card text-center">
+          <i class="fas fa-medal text-4xl text-orange-500 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Best Employee</h3>
+          <p class="text-gray-700">For exceptional team performance</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Contact -->
-  <section class="bg-white py-10 text-center shadow-inner" data-aos="fade-up">
-    <h2 class="text-3xl font-semibold mb-4">Contact Me</h2>
-    <p>Email: <a href="mailto:joshuagenius2001@gmail.com" class="text-blue-600 underline">joshuagenius2001@gmail.com</a></p>
-    <p>Phone: <a href="tel:+919025761741" class="text-blue-600 underline">+91 90257 61741</a></p>
+  <!-- Contact Section -->
+  <section class="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-12 md:py-16" data-aos="fade-up">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8">
+        <i class="fas fa-envelope mr-3"></i>Let's Connect
+      </h2>
+      <p class="text-lg md:text-xl mb-8 text-blue-100">
+        Ready to bring your ideas to life? Let's discuss your next project!
+      </p>
+      
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <a href="mailto:joshuagenius2001@gmail.com" 
+           class="glass-card p-6 rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-300 group">
+          <i class="fas fa-envelope text-3xl mb-4 group-hover:text-blue-600"></i>
+          <h3 class="text-xl font-semibold mb-2">Email Me</h3>
+          <p class="break-all">joshuagenius2001@gmail.com</p>
+        </a>
+        
+        <a href="tel:+919025761741" 
+           class="glass-card p-6 rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-300 group">
+          <i class="fas fa-phone text-3xl mb-4 group-hover:text-blue-600"></i>
+          <h3 class="text-xl font-semibold mb-2">Call Me</h3>
+          <p>+91 90257 61741</p>
+        </a>
+      </div>
+
+      <div class="flex justify-center space-x-6">
+        <a href="#" class="text-2xl hover:text-blue-300 transition-colors duration-300">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" class="text-2xl hover:text-blue-300 transition-colors duration-300">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="#" class="text-2xl hover:text-blue-300 transition-colors duration-300">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+    </div>
   </section>
 
-  <script>
-    AOS.init();
-  </script>
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-8">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <p class="text-gray-400">
+        © 2025 Joshua Vimal Raj R.Best Regards
+      </p>
+    </div>
+  </footer>
+
+<script>
+  // Fix horizontal gap by enforcing overflow hidden
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.overflowX = 'hidden';
+  });
+
+  // Initialize AOS
+  AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true,
+    offset: 100
+  });
+
+  // Scroll Progress Indicator
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    const progressBar = document.getElementById('scrollProgress');
+    if (progressBar) {
+      progressBar.style.width = scrolled + '%';
+    }
+  });
+
+  // Smooth Scroll to Top
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Show/Hide FAB based on scroll position
+  window.addEventListener('scroll', () => {
+    const fab = document.querySelector('.fab');
+    if (fab) {
+      if (window.scrollY > 300) {
+        fab.style.opacity = '1';
+        fab.style.transform = 'scale(1)';
+      } else {
+        fab.style.opacity = '0';
+        fab.style.transform = 'scale(0.8)';
+      }
+    }
+  });
+
+  // Animate section cards when in view
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fadeInUp');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.section-card').forEach(card => {
+    observer.observe(card);
+  });
+
+  // Add loading animation
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+  });
+
+  // Touch interactions
+  if ('ontouchstart' in window) {
+    document.querySelectorAll('.section-card, .skill-card, .project-card').forEach(card => {
+      card.addEventListener('touchstart', function () {
+        this.style.transform = 'scale(0.98)';
+      });
+      card.addEventListener('touchend', function () {
+        this.style.transform = '';
+      });
+    });
+  }
+
+  // Lazy load videos
+  const videos = document.querySelectorAll('video');
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      const dataSrc = video.getAttribute('data-src');
+      if (entry.isIntersecting) {
+        if (dataSrc && !video.src) {
+          video.src = dataSrc;
+          video.muted = true;
+          video.load();
+        }
+        videoObserver.unobserve(video);
+      }
+    });
+  });
+
+  videos.forEach(video => {
+    videoObserver.observe(video);
+  });
+
+  // Animate skill cards with staggered delay
+  const skillCards = document.querySelectorAll('.skill-card');
+  skillCards.forEach((card, index) => {
+    card.style.animationDelay = `${index * 0.1}s`;
+  });
+
+  // Reduce animation for low-end devices
+  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+    document.documentElement.style.setProperty('--animation-duration', '0.2s');
+  }
+
+  // Swipe gesture support
+  let startX, startY, distX, distY;
+  const threshold = 150, restraint = 100;
+
+  document.addEventListener('touchstart', (e) => {
+    startX = e.changedTouches[0].pageX;
+    startY = e.changedTouches[0].pageY;
+  });
+
+  document.addEventListener('touchend', (e) => {
+    distX = e.changedTouches[0].pageX - startX;
+    distY = e.changedTouches[0].pageY - startY;
+
+    if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+      if (distX > 0) {
+        // Swipe right
+      } else {
+        // Swipe left
+      }
+    }
+  });
+
+  // Auto-play videos in viewport
+  const videoPlayObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        video.muted = true;
+        video.play().catch(err => {
+          console.log('Auto-play prevented:', err.message);
+          video.controls = true;
+        });
+      } else {
+        if (!video.paused) {
+          video.pause();
+        }
+      }
+    });
+  }, {
+    threshold: 0.3,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  videos.forEach(video => {
+    video.pause();
+    video.currentTime = 0;
+    videoPlayObserver.observe(video);
+
+    video.addEventListener('play', () => {
+      videos.forEach(other => {
+        if (other !== video && !other.paused) {
+          other.pause();
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
