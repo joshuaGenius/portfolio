@@ -226,7 +226,7 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
 
-     html, body {
+      html, body {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -293,7 +293,7 @@
         <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
           <i class="fas fa-user mr-3"></i>About Me
         </h2>
-        <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg section-card">
+        <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg section-card" id="about-me-card">
           <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
             Skilled Front-End Developer specializing in <span class="font-semibold text-blue-600">Angular</span>. 
             Passionate about building scalable, responsive, and user-friendly applications.
@@ -464,9 +464,9 @@
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             <div class="project-card section-card" data-aos="fade-up">
               <video autoplay loop muted playsinline
-                    class="w-full project-video rounded-t-2xl"
-                    preload="metadata"
-                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280'%3ESign-Up Demo%3C/text%3E%3C/svg%3E">
+                      class="w-full project-video rounded-t-2xl"
+                      preload="metadata"
+                      poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280'%3ESign-Up Demo%3C/text%3E%3C/svg%3E">
                 <source src="./cricket-sign-in.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -483,9 +483,9 @@
 
             <div class="project-card section-card" data-aos="fade-up">
               <video autoplay loop muted playsinline
-                    class="w-full project-video rounded-t-2xl"
-                    preload="metadata"
-                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280'%3EPayment UI Demo%3C/text%3E%3C/svg%3E">
+                      class="w-full project-video rounded-t-2xl"
+                      preload="metadata"
+                      poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280'%3EPayment UI Demo%3C/text%3E%3C/svg%3E">
                 <source src="./cricket-availble-contest.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -511,9 +511,9 @@
         </h2>
         <div class="project-card section-card">
           <video autoplay loop muted playsinline
-                class="w-full h-64 md:h-96 object-cover rounded-t-2xl"
-                preload="metadata"
-                poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='24'%3E Designs Preview%3C/text%3E%3C/svg%3E">
+                  class="w-full h-64 md:h-96 object-cover rounded-t-2xl"
+                  preload="metadata"
+                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='24'%3E Designs Preview%3C/text%3E%3C/svg%3E">
             <source src="./my-designs.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -597,145 +597,148 @@
         </p>
       </div>
     </footer>
-  </div> <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // DOM fully loaded and parsed
-  });
+  </div> 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // DOM fully loaded and parsed
+      AOS.init({
+        easing: 'ease-in-out',
+        once: true,
+      });
 
-  // Initialize AOS
-  AOS.init({
-    easing: 'ease-in-out',
-    once: true,
-  });
-
-  // Smooth Scroll to Top
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // Animate section cards when in view
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-fadeInUp');
+      // Specific fix for the "About Me" section-card
+      const aboutMeCard = document.getElementById('about-me-card');
+      if (aboutMeCard) {
+        aboutMeCard.addEventListener('click', (event) => {
+          // Prevent default behavior (e.g., focusing, which can cause scroll)
+          event.preventDefault(); 
+          // Stop propagation to ensure parent elements don't also react
+          event.stopPropagation();
+        });
+        // Also handle touch events for mobile
+        aboutMeCard.addEventListener('touchstart', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+        }, { passive: false }); // Use passive: false to allow preventDefault
       }
     });
-  }, observerOptions);
 
-  document.querySelectorAll('.section-card').forEach(card => {
-    observer.observe(card);
-  });
+    // Smooth Scroll to Top
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-  // Add loading animation (not used in CSS, but kept if you intend to add a loader)
-  window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-  });
+    // Animate section cards when in view
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
 
-  // Touch interactions for hover effects
-  if ('ontouchstart' in window) {
-    document.querySelectorAll('.section-card, .skill-card, .project-card').forEach(card => {
-      card.addEventListener('touchstart', function () {
-        this.style.transform = 'scale(0.98)';
-      });
-      card.addEventListener('touchend', function () {
-        this.style.transform = '';
-      });
-    });
-  }
-
-  // Video Handling for Autoplay, Loop, Muted, and Playsinline
-  const videos = document.querySelectorAll('video');
-  const videoLazyLoadObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const video = entry.target;
-      // Note: Your HTML currently uses 'src' directly, not 'data-src'.
-      // If you switch to 'data-src' for lazy loading, adjust this.
-      const sourceElement = video.querySelector('source'); 
-      const videoSrc = sourceElement ? sourceElement.getAttribute('src') : video.getAttribute('src');
-
-      if (entry.isIntersecting) {
-        // Only set src if it's not already set (for true lazy loading)
-        if (videoSrc && !video.currentSrc) { // currentSrc checks if browser has loaded a source
-          if (sourceElement) {
-              sourceElement.setAttribute('src', videoSrc);
-          } else {
-              video.setAttribute('src', videoSrc);
-          }
-          video.load(); // Load the video once src is set
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fadeInUp');
         }
-        
-        // Ensure muted, loop, and playsinline are set programmatically for robustness
-        video.muted = true;
-        video.loop = true;
-        video.setAttribute('playsinline', ''); // Ensure playsinline is always present
+      });
+    }, observerOptions);
 
-        // Attempt to play the video. Use a promise to catch rejections.
-        const playPromise = video.play();
+    document.querySelectorAll('.section-card').forEach(card => {
+      observer.observe(card);
+    });
 
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            // Autoplay started successfully
-            console.log('Video autoplayed successfully!');
-          }).catch(error => {
-            // Autoplay was prevented by the browser. This is common if user hasn't interacted,
-            // or on specific mobile browser policies (e.g., iOS low power mode).
-            console.warn('Video autoplay prevented:', error.message);
-            // Crucially, we still don't show controls here.
-            // If it's critical, you might add a "Play" button overlay.
+    // Add loading animation (not used in CSS, but kept if you intend to add a loader)
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    // Touch interactions for hover effects
+    if ('ontouchstart' in window) {
+      document.querySelectorAll('.section-card, .skill-card, .project-card').forEach(card => {
+        // Only apply this to cards that *should* scale, not the About Me card if it's problematic
+        if (card.id !== 'about-me-card') { // Exclude the About Me card
+          card.addEventListener('touchstart', function () {
+            this.style.transform = 'scale(0.98)';
+          });
+          card.addEventListener('touchend', function () {
+            this.style.transform = '';
           });
         }
+      });
+    }
 
-        // To increase chances of autoplay if initially blocked due to user interaction policy:
-        // Try to play the video when any common user interaction occurs on the document.
-        // This is added only once per video element.
-        if (!video.dataset.hasUserInteractionListener) {
-            const tryPlayOnUserInteraction = () => {
-                if (video.paused) { // Only try to play if it's currently paused
-                    video.play().catch(err => {
-                        console.log('Attempt to play on user interaction failed:', err.message);
-                    });
-                }
-            };
-            
-            // Add listeners to common user interaction events
-            document.addEventListener('click', tryPlayOnUserInteraction, { once: true });
-            document.addEventListener('touchstart', tryPlayOnUserInteraction, { once: true });
-            document.addEventListener('scroll', tryPlayOnUserInteraction, { once: true }); // Scrolls are also user interaction
-            video.dataset.hasUserInteractionListener = 'true'; // Mark as having listener
-        }
+    // Video Handling for Autoplay, Loop, Muted, and Playsinline
+    const videos = document.querySelectorAll('video');
+    const videoLazyLoadObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        const sourceElement = video.querySelector('source'); 
+        const videoSrc = sourceElement ? sourceElement.getAttribute('src') : video.getAttribute('src');
 
-      } else {
-        // Optional: Pause video when it's out of view to save resources
-        if (!video.paused) {
-          video.pause();
+        if (entry.isIntersecting) {
+          if (videoSrc && !video.currentSrc) { 
+            if (sourceElement) {
+                sourceElement.setAttribute('src', videoSrc);
+            } else {
+                video.setAttribute('src', videoSrc);
+            }
+            video.load(); 
+          }
+          
+          video.muted = true;
+          video.loop = true;
+          video.setAttribute('playsinline', ''); 
+
+          const playPromise = video.play();
+
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              console.log('Video autoplayed successfully!');
+            }).catch(error => {
+              console.warn('Video autoplay prevented:', error.message);
+            });
+          }
+
+          if (!video.dataset.hasUserInteractionListener) {
+              const tryPlayOnUserInteraction = () => {
+                  if (video.paused) { 
+                      video.play().catch(err => {
+                          console.log('Attempt to play on user interaction failed:', err.message);
+                      });
+                  }
+              };
+              
+              document.addEventListener('click', tryPlayOnUserInteraction, { once: true });
+              document.addEventListener('touchstart', tryPlayOnUserInteraction, { once: true });
+              document.addEventListener('scroll', tryPlayOnUserInteraction, { once: true }); 
+              video.dataset.hasUserInteractionListener = 'true'; 
+          }
+
+        } else {
+          if (!video.paused) {
+            video.pause();
+          }
         }
-      }
+      });
+    }, {
+      threshold: 0.1 
     });
-  }, {
-    threshold: 0.1 // When 10% of the video is visible, trigger
-  });
 
-  videos.forEach(video => {
-    videoLazyLoadObserver.observe(video);
-  });
+    videos.forEach(video => {
+      videoLazyLoadObserver.observe(video);
+    });
 
-  // Animate skill cards with staggered delay
-  const skillCards = document.querySelectorAll('.skill-card');
-  skillCards.forEach((card, index) => {
-    card.style.animationDelay = `${index * 0.1}s`; 
-  });
+    // Animate skill cards with staggered delay
+    const skillCards = document.querySelectorAll('.skill-card');
+    skillCards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;  
+    });
 
-  // Reduce animation for low-end devices
-  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
-    document.documentElement.style.setProperty('--animation-duration', '0.2s');
-  }
+    // Reduce animation for low-end devices
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+      document.documentElement.style.setProperty('--animation-duration', '0.2s');
+    }
 
-</script>
+  </script>
 
 </body>
 </html>
