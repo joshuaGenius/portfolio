@@ -179,22 +179,7 @@
       }
     }
     
-    /* Smooth Scroll Indicators */
-    .scroll-indicator {
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: rgba(59, 130, 246, 0.2);
-      z-index: 1000;
-    }
-    
-    .scroll-progress {
-      height: 100%;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-      width: 0%;
-      transition: width 0.1s ease;
-    }
+
     
     /* Floating Action Button */
     .fab {
@@ -260,10 +245,7 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-  <!-- Scroll Progress Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-progress" id="scrollProgress"></div>
-  </div>
+
 
   <!-- Floating Action Button -->
   <div class="fab" onclick="scrollToTop()">
@@ -631,39 +613,18 @@
 
   // Initialize AOS
   AOS.init({
-    duration: 800,
     easing: 'ease-in-out',
     once: true,
-    offset: 100
   });
 
-  // Scroll Progress Indicator
-  window.addEventListener('scroll', () => {
-    const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-    const progressBar = document.getElementById('scrollProgress');
-    if (progressBar) {
-      progressBar.style.width = scrolled + '%';
-    }
-  });
+
 
   // Smooth Scroll to Top
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Show/Hide FAB based on scroll position
-  window.addEventListener('scroll', () => {
-    const fab = document.querySelector('.fab');
-    if (fab) {
-      if (window.scrollY > 300) {
-        fab.style.opacity = '1';
-        fab.style.transform = 'scale(1)';
-      } else {
-        fab.style.opacity = '0';
-        fab.style.transform = 'scale(0.8)';
-      }
-    }
-  });
+
 
   // Animate section cards when in view
   const observerOptions = {
