@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Joshua Vimal | Front-End Developer</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -16,20 +14,35 @@
     }
     
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacMacSystemFont, sans-serif;
+      overflow-x: hidden; /* Prevents horizontal scroll */
+      /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+      -webkit-overflow-scrolling: touch; /* Improves scrolling on iOS */
     }
-    
-    /* Enhanced Hero Background */
+
+    /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for Firefox */
+    body {
+      scrollbar-width: none; /* Firefox */
+    }
+
+    /* Hero Background - No continuous animations */
     .bg-hero {
       background: linear-gradient(135deg, 
         rgba(59, 130, 246, 0.9) 0%, 
         rgba(147, 51, 234, 0.8) 50%, 
         rgba(239, 68, 68, 0.7) 100%),
         url('https://images.unsplash.com/photo-1498050108023-c5249f4df085') no-repeat center center/cover;
+      background-attachment: scroll; 
       position: relative;
       overflow: hidden; 
     }
     
+    /* Removed ::before background animation */
     .bg-hero::before {
       content: '';
       position: absolute;
@@ -39,54 +52,31 @@
       bottom: 0;
       background: radial-gradient(circle at 30% 20%, rgba(120, 119, 198, 0.3), transparent 50%),
                   radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3), transparent 50%);
-      animation: float 6s ease-in-out infinite;
     }
     
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(1deg); }
-    }
-    
-    /* Glassmorphism Cards */
+    /* Glassmorphism Cards - Optimized transitions */
     .glass-card {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: transform, background, box-shadow;
+      background: rgba(255, 255, 255, 0.2); 
+      backdrop-filter: blur(8px); 
+      border: 1px solid rgba(255, 255, 255, 0.15); 
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
+      will-change: transform, box-shadow; 
     }
     
     .glass-card:hover {
-      background: rgba(255, 255, 255, 0.35);
-      transform: translateY(-8px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      transform: translateY(-2px); /* Very subtle lift */
+      box-shadow: 0 8px 15px -6px rgba(0, 0, 0, 0.1); /* Lighter shadow */
     }
     
-    /* Enhanced Animations */
-    .fade-in {
-      animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      will-change: opacity, transform;
-    }
-    
-    @keyframes fadeInUp {
-      0% { 
-        opacity: 0; 
-        transform: translateY(60px) scale(0.95); 
-      }
-      100% { 
-        opacity: 1; 
-        transform: translateY(0) scale(1); 
-      }
-    }
-    
+    /* Section Cards - Optimized transitions */
     .section-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      animation: slideInUp 0.8s ease-out both;
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
       position: relative;
       overflow: hidden;
       will-change: transform, box-shadow;
     }
     
+    /* Hover shimmer effect - retained, as it's purely visual and non-blocking */
     .section-card::before {
       content: '';
       position: absolute;
@@ -95,7 +85,7 @@
       width: 100%;
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-      transition: left 0.5s;
+      transition: left 0.3s ease-out; /* Slightly faster */
     }
     
     .section-card:hover::before {
@@ -103,28 +93,17 @@
     }
     
     .section-card:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transform: translateY(-3px); /* Subtle lift */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07); /* Lighter shadow */
     }
     
-    @keyframes slideInUp {
-      from { 
-        opacity: 0; 
-        transform: translateY(50px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
-    }
-    
-    /* Skill Cards with Gradient Borders */
+    /* Skill Cards - Optimized transitions */
     .skill-card {
       position: relative;
       background: white;
       border-radius: 12px;
       padding: 1rem;
-      transition: all 0.3s ease;
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
       will-change: transform, box-shadow;
     }
     
@@ -134,10 +113,12 @@
       inset: 0;
       padding: 2px;
       border-radius: 12px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: xor;
+      mask-composite: exclude;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.15s ease-out; /* Even faster */
+      pointer-events: none;
     }
     
     .skill-card:hover::before {
@@ -145,8 +126,8 @@
     }
     
     .skill-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px); /* Very subtle lift */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Even lighter shadow */
     }
     
     /* Enhanced Typography */
@@ -160,98 +141,73 @@
     /* Mobile Optimizations */
     @media (max-width: 768px) {
       .hero-title {
-        font-size: 2.5rem !important;
-        line-height: 1.2;
+        font-size: 2rem !important; 
       }
       
       .hero-subtitle {
-        font-size: 1.125rem !important;
+        font-size: 0.95rem !important;
       }
       
       .section-padding {
         padding: 2rem 1rem !important;
       }
       
-      .mobile-grid {
+      .grid {
         grid-template-columns: 1fr !important;
         gap: 1rem !important;
       }
       
       .project-video {
-        max-height: 250px;
+        max-height: 180px; 
         object-fit: cover;
       }
     }
     
-
-    
-    /* Floating Action Button */
+    /* Floating Action Button - Optimized transitions */
     .fab {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 56px;
-      height: 56px;
+      bottom: 1.25rem; 
+      right: 1.25rem; 
+      width: 48px; 
+      height: 48px; 
       background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
-      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(59, 130, 246, 0.2); 
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
       z-index: 1000;
       cursor: pointer;
       will-change: transform, box-shadow;
     }
     
     .fab:hover {
-      transform: scale(1.1);
-      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
+      transform: scale(1.03); /* Very subtle scale */
+      box-shadow: 0 6px 25px rgba(59, 130, 246, 0.25);
     }
     
-    /* Enhanced Project Cards */
+    /* Project Cards - Optimized transitions */
     .project-card {
       position: relative;
       overflow: hidden;
       border-radius: 16px;
       background: white;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); 
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
       will-change: transform, box-shadow;
     }
     
     .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px); /* Subtle lift */
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); 
     }
 
-      html, body {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    /* Optional: Contain hover scale animations */
-    .skill-card:hover {
-      z-index: 10;
-    }
-
-    /* Smooth scaling */
-    .skill-card {
-      transition: transform 0.3s ease;
-    }
-
-    body::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Add a general wrapper to ensure no horizontal overflow for the entire content */
     #page-wrapper {
-        overflow-x: hidden;
-        width: 100%;
+      overflow-x: hidden;
+      width: 100%;
     }
-
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -262,7 +218,7 @@
       <i class="fas fa-arrow-up"></i>
     </div>
 
-    <section class="bg-hero text-white py-16 md:py-24 text-center fade-in relative z-10">
+    <section class="bg-hero text-white py-16 md:py-24 text-center relative z-10">
       <div class="container mx-auto px-4">
         <div class="glass-card rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
           <h1 class="hero-title text-4xl md:text-6xl font-bold mb-6 gradient-text">
@@ -276,11 +232,11 @@
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="mailto:joshuagenius2001@gmail.com" 
-              class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
+              class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-all duration-200 transform hover:scale-105">
               <i class="fas fa-envelope mr-2"></i>Get In Touch
             </a>
             <a href="tel:+919025761741" 
-              class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
+              class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-all duration-200 transform hover:scale-105">
               <i class="fas fa-phone mr-2"></i>Call Me
             </a>
           </div>
@@ -288,7 +244,7 @@
       </div>
     </section>
 
-    <section class="section-padding py-12 md:py-16" data-aos="fade-up">
+    <section class="section-padding py-12 md:py-16">
       <div class="max-w-4xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
           <i class="fas fa-user mr-3"></i>About Me
@@ -303,7 +259,7 @@
       </div>
     </section>
 
-    <section class="bg-gradient-to-br from-blue-50 to-purple-50 py-12 md:py-16" data-aos="fade-up">
+    <section class="bg-gradient-to-br from-blue-50 to-purple-50 py-12 md:py-16">
       <div class="max-w-6xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
           <i class="fas fa-cogs mr-3"></i>Skills
@@ -343,12 +299,11 @@
       </div>
     </section>
 
-    <section class="section-padding py-12 md:py-16" data-aos="fade-right">
+    <section class="section-padding py-12 md:py-16">
       <div class="max-w-5xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
           <i class="fas fa-briefcase mr-3"></i>Experience
         </h2>
-
         <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8 section-card border-l-4 border-blue-500">
           <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
             <div>
@@ -404,7 +359,7 @@
       </div>
     </section>
 
-    <section class="bg-gradient-to-br from-purple-50 to-pink-50 py-12 md:py-16" data-aos="fade-up">
+    <section class="bg-gradient-to-br from-purple-50 to-pink-50 py-12 md:py-16">
       <div class="max-w-7xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
           <i class="fas fa-project-diagram mr-3"></i>Featured Projects
@@ -443,7 +398,7 @@
         </div>
 
         <div class="space-y-8">
-          <div class="project-card section-card" data-aos="zoom-in">
+          <div class="project-card section-card">
             <div class="relative">
               <img src="./cricket-sign-up.png" 
                   alt="Cricket App Screenshot" 
@@ -462,7 +417,7 @@
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-            <div class="project-card section-card" data-aos="fade-up">
+            <div class="project-card section-card">
               <video autoplay loop muted playsinline
                       class="w-full project-video rounded-t-2xl"
                       preload="metadata"
@@ -481,7 +436,7 @@
               </div>
             </div>
 
-            <div class="project-card section-card" data-aos="fade-up">
+            <div class="project-card section-card">
               <video autoplay loop muted playsinline
                       class="w-full project-video rounded-t-2xl"
                       preload="metadata"
@@ -492,7 +447,7 @@
               <div class="p-6">
                 <h3 class="text-lg md:text-xl font-bold mb-2 text-center">
                   <i class="fas fa-credit-card mr-2 text-blue-600"></i>
-                  Created Contetst & Integrated Payment UPI 
+                  Created Contest & Integrated Payment UPI 
                 </h3>
                 <p class="text-center text-gray-700 text-sm md:text-base">
                   Highlights Angular Materials, payment integrations, and responsive handling.
@@ -504,7 +459,7 @@
       </div>
     </section>
 
-    <section class="section-padding py-12 md:py-16" data-aos="fade-up">
+    <section class="section-padding py-12 md:py-16">
       <div class="max-w-6xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
           <i class="fas fa-palette mr-3"></i>Web Design Showcase
@@ -531,7 +486,7 @@
       </div>
     </section>
 
-    <section class="bg-gradient-to-r from-yellow-50 to-orange-50 py-12 md:py-16" data-aos="fade-left">
+    <section class="bg-gradient-to-r from-yellow-50 to-orange-50 py-12 md:py-16">
       <div class="max-w-4xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
           <i class="fas fa-trophy mr-3"></i>Awards & Recognition
@@ -551,7 +506,7 @@
       </div>
     </section>
 
-    <section class="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-12 md:py-16" data-aos="fade-up">
+    <section class="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-12 md:py-16">
       <div class="max-w-4xl mx-auto px-4 text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-8">
           <i class="fas fa-envelope mr-3"></i>Let's Connect
@@ -562,14 +517,14 @@
         
         <div class="grid md:grid-cols-2 gap-6 mb-8">
           <a href="mailto:joshuagenius2001@gmail.com" 
-            class="glass-card p-6 rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-300 group">
+            class="glass-card p-6 rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-200 group">
             <i class="fas fa-envelope text-3xl mb-4 group-hover:text-blue-600"></i>
             <h3 class="text-xl font-semibold mb-2">Email Me</h3>
             <p class="break-all">joshuagenius2001@gmail.com</p>
           </a>
           
           <a href="tel:+919025761741" 
-            class="glass-card p-6 rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-300 group">
+            class="glass-card p-6 rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-200 group">
             <i class="fas fa-phone text-3xl mb-4 group-hover:text-blue-600"></i>
             <h3 class="text-xl font-semibold mb-2">Call Me</h3>
             <p>+91 90257 61741</p>
@@ -577,13 +532,13 @@
         </div>
 
         <div class="flex justify-center space-x-6">
-          <a href="#" class="text-2xl hover:text-blue-300 transition-colors duration-300">
+          <a href="https://www.linkedin.com/in/joshua-vimal-raj-r-3660a9254/" target="_blank" class="text-2xl hover:text-blue-300 transition-colors duration-200">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="#" class="text-2xl hover:text-blue-300 transition-colors duration-300">
+          <a href="https://github.com/joshuavimal" target="_blank" class="text-2xl hover:text-blue-300 transition-colors duration-200">
             <i class="fab fa-github"></i>
           </a>
-          <a href="#" class="text-2xl hover:text-blue-300 transition-colors duration-300">
+          <a href="#" class="text-2xl hover:text-blue-300 transition-colors duration-200">
             <i class="fab fa-twitter"></i>
           </a>
         </div>
@@ -593,152 +548,71 @@
     <footer class="bg-gray-900 text-white py-8">
       <div class="max-w-6xl mx-auto px-4 text-center">
         <p class="text-gray-400">
-          © 2025 Joshua Vimal Raj R.Best Regards
+          © 2025 Joshua Vimal Raj R. Best Regards
         </p>
       </div>
     </footer>
   </div> 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // DOM fully loaded and parsed
-      AOS.init({
-        easing: 'ease-in-out',
-        once: true,
-      });
-
-      // Specific fix for the "About Me" section-card
-      const aboutMeCard = document.getElementById('about-me-card');
-      if (aboutMeCard) {
-        aboutMeCard.addEventListener('click', (event) => {
-          // Prevent default behavior (e.g., focusing, which can cause scroll)
-          event.preventDefault(); 
-          // Stop propagation to ensure parent elements don't also react
-          event.stopPropagation();
-        });
-        // Also handle touch events for mobile
-        aboutMeCard.addEventListener('touchstart', (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-        }, { passive: false }); // Use passive: false to allow preventDefault
+      // AOS.init() call is completely removed.
+      
+      // Smooth Scroll to Top
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    });
+      window.scrollToTop = scrollToTop; 
 
-    // Smooth Scroll to Top
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Animate section cards when in view
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fadeInUp');
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.section-card').forEach(card => {
-      observer.observe(card);
-    });
-
-    // Add loading animation (not used in CSS, but kept if you intend to add a loader)
-    window.addEventListener('load', () => {
-      document.body.classList.add('loaded');
-    });
-
-    // Touch interactions for hover effects
-    if ('ontouchstart' in window) {
-      document.querySelectorAll('.section-card, .skill-card, .project-card').forEach(card => {
-        // Only apply this to cards that *should* scale, not the About Me card if it's problematic
-        if (card.id !== 'about-me-card') { // Exclude the About Me card
-          card.addEventListener('touchstart', function () {
-            this.style.transform = 'scale(0.98)';
-          });
-          card.addEventListener('touchend', function () {
-            this.style.transform = '';
-          });
-        }
-      });
-    }
-
-    // Video Handling for Autoplay, Loop, Muted, and Playsinline
-    const videos = document.querySelectorAll('video');
-    const videoLazyLoadObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const video = entry.target;
-        const sourceElement = video.querySelector('source'); 
-        const videoSrc = sourceElement ? sourceElement.getAttribute('src') : video.getAttribute('src');
-
-        if (entry.isIntersecting) {
-          if (videoSrc && !video.currentSrc) { 
-            if (sourceElement) {
-                sourceElement.setAttribute('src', videoSrc);
-            } else {
-                video.setAttribute('src', videoSrc);
-            }
-            video.load(); 
-          }
-          
+      // Video Handling for Autoplay, Loop, Muted, and Playsinline
+      const videos = document.querySelectorAll('video');
+      const videoLazyLoadObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target;
           video.muted = true;
           video.loop = true;
           video.setAttribute('playsinline', ''); 
 
-          const playPromise = video.play();
+          if (entry.isIntersecting) {
+            const sourceElement = video.querySelector('source');
+            const videoSrc = sourceElement ? sourceElement.getAttribute('src') : video.getAttribute('src');
+            
+            // Only set src and load if not already loaded to prevent re-loading
+            if (videoSrc && !video.currentSrc) {
+                if (sourceElement) {
+                    sourceElement.setAttribute('src', videoSrc);
+                } else {
+                    video.setAttribute('src', videoSrc);
+                }
+                video.load(); 
+            }
 
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              console.log('Video autoplayed successfully!');
-            }).catch(error => {
-              console.warn('Video autoplay prevented:', error.message);
-            });
-          }
+            const playPromise = video.play();
 
-          if (!video.dataset.hasUserInteractionListener) {
-              const tryPlayOnUserInteraction = () => {
-                  if (video.paused) { 
-                      video.play().catch(err => {
-                          console.log('Attempt to play on user interaction failed:', err.message);
-                      });
-                  }
-              };
-              
-              document.addEventListener('click', tryPlayOnUserInteraction, { once: true });
-              document.addEventListener('touchstart', tryPlayOnUserInteraction, { once: true });
-              document.addEventListener('scroll', tryPlayOnUserInteraction, { once: true }); 
-              video.dataset.hasUserInteractionListener = 'true'; 
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                // Autoplay started successfully
+              }).catch(error => {
+                // Autoplay was prevented by the browser. This is common if user hasn't interacted.
+                // You might consider adding a play button overlay for these cases.
+                console.warn('Video autoplay prevented:', error.message);
+              });
+            }
+          } else {
+            // Pause video when it's out of view to save resources
+            if (!video.paused) {
+              video.pause();
+            }
           }
-
-        } else {
-          if (!video.paused) {
-            video.pause();
-          }
-        }
+        });
+      }, {
+        threshold: 0.1 // Trigger when 10% of the video is visible
       });
-    }, {
-      threshold: 0.1 
-    });
 
-    videos.forEach(video => {
-      videoLazyLoadObserver.observe(video);
+      videos.forEach(video => {
+        videoLazyLoadObserver.observe(video);
+      });
     });
-
-    // Animate skill cards with staggered delay
-    const skillCards = document.querySelectorAll('.skill-card');
-    skillCards.forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.1}s`;  
-    });
-
-    // Reduce animation for low-end devices
-    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
-      document.documentElement.style.setProperty('--animation-duration', '0.2s');
-    }
 
   </script>
-
 </body>
 </html>
