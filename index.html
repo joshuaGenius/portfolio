@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
     * {
       scroll-behavior: smooth;
@@ -15,653 +15,599 @@
     
     body {
       font-family: 'Inter', -apple-system, BlinkMacMacSystemFont, sans-serif;
-      overflow-x: hidden; /* Prevents horizontal scroll */
-      /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
-      -webkit-overflow-scrolling: touch; /* Improves scrolling on iOS */
+      line-height: 1.6;
     }
 
-    /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
-    body::-webkit-scrollbar {
-      display: none;
-    }
-
-    /* Hide scrollbar for Firefox */
-    body {
-      scrollbar-width: none; /* Firefox */
-    }
-
-    /* Hero Background - No continuous animations */
-    .bg-hero {
-      background: linear-gradient(135deg, 
-        rgba(59, 130, 246, 0.9) 0%, 
-        rgba(147, 51, 234, 0.8) 50%, 
-        rgba(239, 68, 68, 0.7) 100%),
-        url('https://images.unsplash.com/photo-1498050108023-c5249f4df085') no-repeat center center/cover;
-      background-attachment: scroll; 
-      position: relative;
-      overflow: hidden; 
-    }
-    
-    /* Removed ::before background animation */
-    .bg-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 30% 20%, rgba(120, 119, 198, 0.3), transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3), transparent 50%);
-    }
-    
-    /* Glassmorphism Cards - Optimized transitions */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.2); 
-      backdrop-filter: blur(8px); 
-      border: 1px solid rgba(255, 255, 255, 0.15); 
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
-      will-change: transform, box-shadow; 
-    }
-    
-    .glass-card:hover {
-      transform: translateY(-2px); /* Very subtle lift */
-      box-shadow: 0 8px 15px -6px rgba(0, 0, 0, 0.1); /* Lighter shadow */
-    }
-    
-    /* Section Cards - Optimized transitions */
-    .section-card {
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
-      position: relative;
-      overflow: hidden;
-      will-change: transform, box-shadow;
-    }
-    
-    /* Hover shimmer effect - retained, as it's purely visual and non-blocking */
-    .section-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-      transition: left 0.3s ease-out; /* Slightly faster */
-    }
-    
-    .section-card:hover::before {
-      left: 100%;
-    }
-    
-    .section-card:hover {
-      transform: translateY(-3px); /* Subtle lift */
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07); /* Lighter shadow */
-    }
-    
-    /* Skill Cards - Optimized transitions */
-    .skill-card {
-      position: relative;
-      background: white;
-      border-radius: 12px;
-      padding: 1rem;
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
-      will-change: transform, box-shadow;
-    }
-    
-    .skill-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      padding: 2px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.15s ease-out; /* Even faster */
-      pointer-events: none;
-    }
-    
-    .skill-card:hover::before {
-      opacity: 1;
-    }
-    
-    .skill-card:hover {
-      transform: translateY(-1px); /* Very subtle lift */
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Even lighter shadow */
-    }
-    
-    /* Enhanced Typography */
-    .gradient-text {
+    /* Clean hero section */
+    .hero-gradient {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
     
-    /* Mobile Optimizations */
+    /* Subtle hover effects */
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Skill badges */
+    .skill-badge {
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .skill-badge:hover {
+      border-color: #667eea;
+      background: #f8faff;
+      transform: translateY(-2px);
+    }
+    
+    /* Section spacing */
+    .section {
+      padding: 4rem 0;
+    }
+    
     @media (max-width: 768px) {
-      .hero-title {
-        font-size: 2rem !important; 
-      }
-      
-      .hero-subtitle {
-        font-size: 0.95rem !important;
-      }
-      
-      .section-padding {
-        padding: 2rem 1rem !important;
-      }
-      
-      .grid {
-        grid-template-columns: 1fr !important;
-        gap: 1rem !important;
-      }
-      
-      .project-video {
-        max-height: 180px; 
-        object-fit: cover;
+      .section {
+        padding: 2rem 0;
       }
     }
     
-    /* Floating Action Button - Optimized transitions */
-    .fab {
+    /* Video container */
+    .video-container {
+      position: relative;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Back to top button */
+    .back-to-top {
       position: fixed;
-      bottom: 1.25rem; 
-      right: 1.25rem; 
-      width: 48px; 
-      height: 48px; 
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: #667eea;
+      color: white;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      box-shadow: 0 5px 20px rgba(59, 130, 246, 0.2); 
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
-      z-index: 1000;
       cursor: pointer;
-      will-change: transform, box-shadow;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     }
     
-    .fab:hover {
-      transform: scale(1.03); /* Very subtle scale */
-      box-shadow: 0 6px 25px rgba(59, 130, 246, 0.25);
-    }
-    
-    /* Project Cards - Optimized transitions */
-    .project-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      background: white;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); 
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; /* Even faster */
-      will-change: transform, box-shadow;
-    }
-    
-    .project-card:hover {
-      transform: translateY(-2px); /* Subtle lift */
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); 
+    .back-to-top:hover {
+      background: #5a67d8;
+      transform: scale(1.1);
     }
 
-    #page-wrapper {
-      overflow-x: hidden;
+    /* Carousel styles */
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.75rem;
+    }
+    
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    
+    .carousel img {
       width: 100%;
+      flex-shrink: 0;
+      height: 250px;
+      object-fit: cover;
+    }
+    
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d1d5db;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .carousel-dot.active {
+      background: #667eea;
     }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50">
 
-  <div id="page-wrapper">
+  <!-- Back to top button -->
+  <div class="back-to-top" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </div>
 
-    <div class="fab" onclick="scrollToTop()">
-      <i class="fas fa-arrow-up"></i>
-    </div>
-
-    <section class="bg-hero text-white py-16 md:py-24 text-center relative z-10">
-      <div class="container mx-auto px-4">
-        <div class="glass-card rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
-          <h1 class="hero-title text-4xl md:text-6xl font-bold mb-6 gradient-text">
-            Joshua Vimal Raj R
-          </h1>
-          <p class="hero-subtitle text-lg md:text-2xl mb-4 text-gray-100">
-            <i class="fas fa-code mr-2"></i>Junior Software Developer Angular
-          </p>
-          <p class="text-base md:text-lg text-gray-200 mb-6">
-            <i class="fas fa-map-marker-alt mr-2"></i>Tirunelveli, Tamil Nadu
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="mailto:joshuagenius2001@gmail.com" 
-              class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-all duration-200 transform hover:scale-105">
-              <i class="fas fa-envelope mr-2"></i>Get In Touch
-            </a>
-            <a href="tel:+919025761741" 
-              class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-all duration-200 transform hover:scale-105">
-              <i class="fas fa-phone mr-2"></i>Call Me
-            </a>
-          </div>
+  <!-- Hero Section -->
+  <section class="hero-gradient text-white">
+    <div class="container mx-auto px-6 py-20">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          Joshua Vimal Raj R
+        </h1>
+        <p class="text-xl md:text-2xl mb-4 text-blue-100">
+          Junior Software Developer - Angular
+        </p>
+        <p class="text-lg mb-8 text-blue-100">
+          <i class="fas fa-map-marker-alt mr-2"></i>Tirunelveli, Tamil Nadu
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="mailto:joshuagenius2001@gmail.com" 
+            class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300">
+            <i class="fas fa-envelope mr-2"></i>Get In Touch
+          </a>
+          <a href="tel:+919025761741" 
+            class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300">
+            <i class="fas fa-phone mr-2"></i>Call Me
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section-padding py-12 md:py-16">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
-          <i class="fas fa-user mr-3"></i>Summary
+  <!-- Summary Section -->
+  <section class="section">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+          About Me
         </h2>
-        <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg section-card" id="about-me-card">
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
+        <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+          <p class="text-lg text-gray-700 leading-relaxed text-center">
             Skilled Full-Stack Developer with a strong focus on <span class="font-semibold text-blue-600">Angular</span> and modern web development practices.
             Experienced in building responsive, efficient, and user-friendly applications across the front-end and back-end.
             Proficient in developing RESTful APIs using <span class="font-semibold text-green-600">Node.js</span> and integrating third-party tools to enhance security, automation, and overall system performance.
-            Adept at solving complex UI challenges, optimizing front-end architecture, and delivering scalable, maintainable solutions in agile, collaborative environments.
           </p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="bg-gradient-to-br from-blue-50 to-purple-50 py-12 md:py-16">
-      <div class="max-w-6xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
-          <i class="fas fa-cogs mr-3"></i>Technical Skills
-        </h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-  <div class="skill-card text-center"><div class="font-semibold">Angular</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">Tailwind Css</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">NodeJs</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">MongoDB</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">REST Api</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">JavaScript</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">Aws (S3, Ec2, RDs)</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">Unit Testing</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">E2E Testing</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">HTML, Css</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">Java (OOPs)</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">Git version Control</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">Firebase</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">NgRx</div></div>
-  <div class="skill-card text-center"><div class="font-semibold">RxJS</div></div>
-</div>
-
+  <!-- Skills Section -->
+  <section class="section bg-gray-100">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+        Technical Skills
+      </h2>
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div class="skill-badge">Angular</div>
+          <div class="skill-badge">Tailwind CSS</div>
+          <div class="skill-badge">Node.js</div>
+          <div class="skill-badge">MongoDB</div>
+          <div class="skill-badge">REST API</div>
+          <div class="skill-badge">JavaScript</div>
+          <div class="skill-badge">AWS (S3, EC2, RDS)</div>
+          <div class="skill-badge">Unit Testing</div>
+          <div class="skill-badge">E2E Testing</div>
+          <div class="skill-badge">HTML & CSS</div>
+          <div class="skill-badge">Java (OOPs)</div>
+          <div class="skill-badge">Git</div>
+          <div class="skill-badge">Firebase</div>
+          <div class="skill-badge">NgRx</div>
+          <div class="skill-badge">RxJS</div>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section-padding py-12 md:py-16">
-      <div class="max-w-5xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
-          <i class="fas fa-briefcase mr-3"></i>Experience
-        </h2>
-        <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8 section-card border-l-4 border-blue-500">
+  <!-- Experience Section -->
+  <section class="section">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+        Experience
+      </h2>
+      <div class="max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-8 shadow-lg card-hover mb-8">
           <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
             <div>
-              <h3 class="text-2xl md:text-3xl font-bold text-blue-700 mb-2">
-                <i class="fas fa-code mr-2"></i>Junior Software Developer
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">
+                Junior Software Developer
               </h3>
-              <p class="text-lg text-gray-600 font-semibold">Zenbasket (E-Commerce Application)</p>
+              <p class="text-lg text-blue-600 font-semibold">Zenbasket (E-Commerce Application)</p>
             </div>
-            <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold mt-2 lg:mt-0">
+            <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg text-sm font-semibold mt-2 lg:mt-0">
               Jan 2023 – Present
             </span>
           </div>
           
-          <div class="grid md:grid-cols-2 gap-4">
-            <div class="space-y-3">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
               <div class="flex items-start">
-                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
                 <p class="text-gray-700">Developed and maintained a scalable e-commerce web application using Angular for the front-end and Node.js for the back-end.</p>
               </div>
               <div class="flex items-start">
-                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
                 <p class="text-gray-700">Built responsive, mobile-friendly UI components to enhance the shopping experience and boost user engagement.</p>
               </div>
               <div class="flex items-start">
-                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
                 <p class="text-gray-700">Implemented lazy loading and code splitting in Angular to improve application performance and reduce load times.</p>
               </div>
             </div>
-            <div class="space-y-3">
+            <div class="space-y-4">
               <div class="flex items-start">
-                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                <p class="text-gray-700">Integrated third-party services for secure user authentication and bot protection to enhance application security and user experience.</p>
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                <p class="text-gray-700">Integrated third-party services for secure user authentication and bot protection to enhance application security.</p>
               </div>
               <div class="flex items-start">
-                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                <p class="text-gray-700">Proficient in developing RESTful APIs using Node.js.</p>
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                <p class="text-gray-700">Proficient in developing RESTful APIs using Node.js for seamless data integration.</p>
               </div>
               <div class="flex items-start">
-                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                <p class="text-gray-700">Adept at solving complex UI challenges, optimizing front-end architecture.</p>
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                <p class="text-gray-700">Adept at solving complex UI challenges and optimizing front-end architecture.</p>
               </div>
             </div>
           </div>
+        </div>
+        
+        <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+          <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">
+                Software Developer
+              </h3>
+              <p class="text-lg text-purple-600 font-semibold">ZenStudio (User Application)</p>
+            </div>
+          </div>
           
-          <div class="mt-8 border-t pt-6 border-gray-200">
-            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
-              <div>
-                <h3 class="text-2xl md:text-3xl font-bold text-blue-700 mb-2">
-                  <i class="fas fa-paint-brush mr-2"></i>Software Developer
-                </h3>
-                <p class="text-lg text-gray-600 font-semibold">ZenStudio (User Application)</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                <p class="text-gray-700">Contributed to the development of a dynamic, web-based design platform enabling users to create and customize layouts through a drag-and-drop interface.</p>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                <p class="text-gray-700">Engineered interactive design tools with real-time rendering, allowing non-technical users to build and preview layouts without writing code.</p>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                <p class="text-gray-700">Optimized the layout engine to support responsive behavior and dynamic element snapping.</p>
               </div>
             </div>
-            <div class="grid md:grid-cols-2 gap-4">
-              <div class="space-y-3">
-                <div class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <p class="text-gray-700">Contributed to the development of a dynamic, web-based design platform enabling users to create and customize layouts through a drag-and-drop interface.</p>
-                </div>
-                <div class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <p class="text-gray-700">Engineered interactive design tools with real-time rendering, allowing non-technical users to build and preview layouts without writing code.</p>
-                </div>
-                <div class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <p class="text-gray-700">Optimized the layout engine to support responsive behavior and dynamic element snapping, ensuring smooth user interactions across devices and screen sizes.</p>
-                </div>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                <p class="text-gray-700">Implemented robust data serialization and deserialization for saving and loading user-created designs efficiently.</p>
               </div>
-              <div class="space-y-3">
-                <div class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <p class="text-gray-700">Implemented robust data serialization and deserialization for saving and loading user-created designs efficiently.</p>
-                </div>
-                <div class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <p class="text-gray-700">Developed a version control system for user designs, enabling rollbacks and collaborative editing features.</p>
-                </div>
-                <div class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <p class="text-gray-700">Enhanced user experience by incorporating advanced undo/redo functionalities and history tracking for design modifications.</p>
-                </div>
+              <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                <p class="text-gray-700">Developed a version control system for user designs, enabling rollbacks and collaborative editing features.</p>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                <p class="text-gray-700">Enhanced user experience by incorporating advanced undo/redo functionalities and history tracking for design modifications.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="bg-gradient-to-br from-purple-50 to-pink-50 py-12 md:py-16">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
-          <i class="fas fa-project-diagram mr-3"></i>Featured Projects
-        </h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
-          <div class="project-card p-6 md:p-8 section-card">
-            <div class="flex items-center mb-4">
+  <!-- Projects Section -->
+  <section class="section bg-gray-100">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+        Featured Projects
+      </h2>
+      
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <!-- Project 1 -->
+          <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+            <div class="flex items-center mb-6">
               <i class="fas fa-shopping-cart text-3xl text-blue-600 mr-4"></i>
-              <h3 class="text-xl md:text-2xl font-bold">ZenBasket (E-Commerce Application)</h3>
+              <h3 class="text-xl font-bold text-gray-800">ZenBasket (E-Commerce Application)</h3>
             </div>
-            <p class="text-gray-700 leading-relaxed mb-4">
-              A scalable e-commerce web application developed using <span class="font-semibold">Angular for the front-end</span> and <span class="font-semibold">Node.js for the back-end</span>.
+            <p class="text-gray-700 mb-6 leading-relaxed">
+              A scalable e-commerce web application developed using Angular for the front-end and Node.js for the back-end.
               Features include responsive, mobile-friendly UI components, enhanced shopping experience, and boosted user engagement.
-              Performance improvements through lazy loading and code splitting in Angular.
-              Integrated third-party services for secure user authentication and bot protection.
             </p>
             <div class="flex flex-wrap gap-2">
               <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Angular</span>
-              <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Node.js</span>
-              <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">MongoDB</span>
-              <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">REST API</span>
-              <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Lazy Loading</span>
-              <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Authentication</span>
+              <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Node.js</span>
+              <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">MongoDB</span>
+              <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">REST API</span>
             </div>
           </div>
 
-          <div class="project-card p-6 md:p-8 section-card">
-            <div class="flex items-center mb-4">
+          <!-- Project 2 -->
+          <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+            <div class="flex items-center mb-6">
               <i class="fas fa-paint-brush text-3xl text-purple-600 mr-4"></i>
-              <h3 class="text-xl md:text-2xl font-bold">ZenStudio (User Application)</h3>
+              <h3 class="text-xl font-bold text-gray-800">ZenStudio (User Application)</h3>
             </div>
-            <p class="text-gray-700 leading-relaxed mb-4">
-              A dynamic, web-based design platform where users can create and customize layouts through a <span class="font-semibold">drag-and-drop interface</span>.
-              Engineered interactive design tools with <span class="font-semibold">real-time rendering</span>, enabling non-technical users to build and preview layouts without writing code.
-              Optimized the layout engine for responsive behavior and dynamic element snapping, ensuring smooth user interactions across devices and screen sizes.
+            <p class="text-gray-700 mb-6 leading-relaxed">
+              A dynamic, web-based design platform where users can create and customize layouts through a drag-and-drop interface.
+              Engineered interactive design tools with real-time rendering, enabling non-technical users to build and preview layouts.
             </p>
             <div class="flex flex-wrap gap-2">
               <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Drag & Drop UI</span>
               <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Real-time Rendering</span>
-              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Responsive Layouts</span>
-              <span class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm">UI/UX Design</span>
+              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Responsive Design</span>
             </div>
           </div>
-<div class="project-card p-6 md:p-8 section-card">
-  <div class="flex items-center mb-4">
-    <i class="fas fa-tasks text-3xl text-green-600 mr-4"></i>
-    <h3 class="text-xl md:text-2xl font-bold">TaskBoard – Angular To-Do Application</h3>
-  </div>
-  
-  <div class="carousel-container overflow-hidden rounded-lg shadow-md mb-4">
-    <div class="carousel flex transition-transform duration-500 ease-in-out">
-      <img src="./image1.png" alt="TaskBoard Screenshot 1" class="w-full object-cover">
-      <img src="./image2.png" alt="TaskBoard Screenshot 2" class="w-full object-cover">
-      <img src="./image3.png" alt="TaskBoard Screenshot 3" class="w-full object-cover">
-      <img src="./image4.png" alt="TaskBoard Screenshot 4" class="w-full object-cover">
-      <img src="./image5.png" alt="TaskBoard Screenshot 5" class="w-full object-cover">
-    </div>
-  </div>
-
-  <!-- Project Description -->
-  <p class="text-gray-700 leading-relaxed mb-4">
-    A productivity-focused to-do list web app built using <span class="font-semibold">Angular</span>, featuring seamless integration with 
-    <span class="font-semibold">Firebase</span> for real-time data syncing and persistence.
-    The application leverages <span class="font-semibold">NgRx</span> for robust state management and <span class="font-semibold">RxJS</span> for reactive data streams 
-    and efficient component communication.
-    Includes features like due-date sorting, filtering, category-based views, and responsive UI design using Angular Material and Tailwind CSS.
-  </p>
-
-  <!-- Tags -->
-  <div class="flex flex-wrap gap-2">
-    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Angular</span>
-    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Firebase</span>
-    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">NgRx</span>
-    <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">RxJS</span>
-    <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">State Management</span>
-    <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">Responsive Design</span>
-  </div>
-</div>
-
         </div>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-            <div class="project-card section-card">
-              <video autoplay loop muted playsinline
-                      class="w-full project-video rounded-t-2xl"
-                      preload="metadata"
-                      poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280'%3ESign-Up Demo%3C/text%3E%3C/svg%3E">
+
+        <!-- TaskBoard Project -->
+        <div class="bg-white rounded-xl p-8 shadow-lg card-hover mb-12">
+          <div class="flex items-center mb-6">
+            <i class="fas fa-tasks text-3xl text-green-600 mr-4"></i>
+            <h3 class="text-xl font-bold text-gray-800">TaskBoard – Angular To-Do Application</h3>
+          </div>
+          
+          <div class="carousel-container mb-6" id="taskboard-carousel">
+            <div class="carousel">
+              <img src="./image1.png" alt="TaskBoard Screenshot 1">
+              <img src="./image2.png" alt="TaskBoard Screenshot 2">
+              <img src="./image3.png" alt="TaskBoard Screenshot 3">
+              <img src="./image4.png" alt="TaskBoard Screenshot 4">
+              <img src="./image5.png" alt="TaskBoard Screenshot 5">
+            </div>
+            <div class="carousel-dots">
+              <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+              <div class="carousel-dot" onclick="goToSlide(1)"></div>
+              <div class="carousel-dot" onclick="goToSlide(2)"></div>
+              <div class="carousel-dot" onclick="goToSlide(3)"></div>
+              <div class="carousel-dot" onclick="goToSlide(4)"></div>
+            </div>
+          </div>
+
+          <p class="text-gray-700 mb-6 leading-relaxed">
+            A productivity-focused to-do list web app built using Angular, featuring seamless integration with 
+            Firebase for real-time data syncing and persistence. The application leverages NgRx for robust state management and RxJS for reactive data streams 
+            and efficient component communication.
+          </p>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Angular</span>
+            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Firebase</span>
+            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">NgRx</span>
+            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">RxJS</span>
+          </div>
+        </div>
+
+        <!-- Video Demos -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="bg-white rounded-xl shadow-lg card-hover overflow-hidden">
+            <div class="video-container">
+              <video autoplay loop muted playsinline class="w-full h-64 object-cover">
                 <source src="./cricket-sign-in.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
-              <div class="p-6">
-                <h3 class="text-lg md:text-xl font-bold mb-2 text-center">
-                  <i class="fas fa-play-circle mr-2 text-red-600"></i>
-                  Sign-Up Interaction Demo
-                </h3>
-                <p class="text-center text-gray-700 text-sm md:text-base">
-                  Demonstrates advanced Angular animations, various UPI payment options including Google Pay, and custom input validation flows.
-                </p>
-              </div>
             </div>
+            <div class="p-6">
+              <h3 class="text-lg font-bold mb-2 text-center">
+                <i class="fas fa-play-circle mr-2 text-red-600"></i>
+                Sign-Up Interaction Demo
+              </h3>
+              <p class="text-center text-gray-700">
+                Demonstrates advanced Angular animations, various UPI payment options including Google Pay, and custom input validation flows.
+              </p>
+            </div>
+          </div>
 
-            <div class="project-card section-card">
-              <video autoplay loop muted playsinline
-                      class="w-full project-video rounded-t-2xl"
-                      preload="metadata"
-                      poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280'%3EPayment UI Demo%3C/text%3E%3C/svg%3E">
+          <div class="bg-white rounded-xl shadow-lg card-hover overflow-hidden">
+            <div class="video-container">
+              <video autoplay loop muted playsinline class="w-full h-64 object-cover">
                 <source src="./cricket-availble-contest.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
-              <div class="p-6">
-                <h3 class="text-lg md:text-xl font-bold mb-2 text-center">
-                  <i class="fas fa-credit-card mr-2 text-blue-600"></i>
-                  Created Contest & Integrated Payment UPI 
-                </h3>
-                <p class="text-center text-gray-700 text-sm md:text-base">
-                  Showcases the implementation of Angular Material components, robust payment gateway integrations, and adaptive responsive design for various devices.
-                </p>
-              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-bold mb-2 text-center">
+                <i class="fas fa-credit-card mr-2 text-blue-600"></i>
+                Contest Creation & Payment Integration
+              </h3>
+              <p class="text-center text-gray-700">
+                Showcases the implementation of Angular Material components, robust payment gateway integrations, and adaptive responsive design.
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="bg-gradient-to-r from-yellow-50 to-orange-50 py-12 md:py-16">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
-          <i class="fas fa-graduation-cap mr-3"></i>Education
-        </h2>
-        <div class="bg-white p-6 rounded-2xl shadow-lg section-card text-center">
-            <h3 class="text-xl font-bold mb-2">B.E. Electronics and Communication Engineering</h3>
-            <p class="text-gray-700 font-semibold">National Engineering College</p>
-            <p class="text-gray-600">Anna University</p>
-            <p class="text-gray-500 text-sm">2019 - 2023</p>
+  <!-- Education Section -->
+  <section class="section">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+        Education
+      </h2>
+      <div class="max-w-2xl mx-auto">
+        <div class="bg-white rounded-xl p-8 shadow-lg card-hover text-center">
+          <i class="fas fa-graduation-cap text-4xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2 text-gray-800">B.E. Electronics and Communication Engineering</h3>
+          <p class="text-gray-700 font-semibold">National Engineering College</p>
+          <p class="text-gray-600">Anna University</p>
+          <p class="text-gray-500">2019 - 2023</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="bg-gradient-to-r from-yellow-50 to-orange-50 py-12 md:py-16">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
-          <i class="fas fa-trophy mr-3"></i>Awards & Recognition
-        </h2>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="bg-white p-6 rounded-2xl shadow-lg section-card text-center">
+  <!-- Awards Section -->
+  <section class="section bg-gray-100">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+        Awards & Recognition
+      </h2>
+      <div class="max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-xl p-6 shadow-lg card-hover text-center">
             <i class="fas fa-star text-4xl text-yellow-500 mb-4"></i>
-            <h3 class="text-xl font-bold mb-2">Rising Star</h3>
-            <p class="text-gray-700">Recognized in 2025</p>
+            <h3 class="text-lg font-bold mb-2 text-gray-800">Rising Star</h3>
+            <p class="text-gray-600">Recognized in 2025</p>
           </div>
-          <div class="bg-white p-6 rounded-2xl shadow-lg section-card text-center">
+          <div class="bg-white rounded-xl p-6 shadow-lg card-hover text-center">
             <i class="fas fa-medal text-4xl text-orange-500 mb-4"></i>
-            <h3 class="text-xl font-bold mb-2">Overall Best Employee of the Team</h3>
-            <p class="text-gray-700">Awarded in 2024</p>
+            <h3 class="text-lg font-bold mb-2 text-gray-800">Best Employee of the Team</h3>
+            <p class="text-gray-600">Awarded in 2024</p>
           </div>
-          <div class="bg-white p-6 rounded-2xl shadow-lg section-card text-center">
+          <div class="bg-white rounded-xl p-6 shadow-lg card-hover text-center">
             <i class="fas fa-lightbulb text-4xl text-indigo-500 mb-4"></i>
-            <h3 class="text-xl font-bold mb-2">Most Innovative Employer of the Year</h3>
-            <p class="text-gray-700">Recognized in 2023</p>
+            <h3 class="text-lg font-bold mb-2 text-gray-800">Most Innovative Employee</h3>
+            <p class="text-gray-600">Recognized in 2023</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="bg-gradient-to-r from-green-50 to-blue-50 py-12 md:py-16">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">
-          <i class="fas fa-info-circle mr-3"></i>Additional Information
-        </h2>
-        <div class="bg-white p-6 rounded-2xl shadow-lg section-card text-center">
-            <h3 class="text-xl font-bold mb-2">Languages</h3>
-            <p class="text-gray-700">English (Business English, Vantage)</p>
-            <p class="text-gray-700">Tamil</p>
+  <!-- Languages Section -->
+  <section class="section">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+        Languages
+      </h2>
+      <div class="max-w-2xl mx-auto">
+        <div class="bg-white rounded-xl p-8 shadow-lg card-hover text-center">
+          <i class="fas fa-language text-4xl text-green-600 mb-4"></i>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">English</h3>
+              <p class="text-gray-600">Business Level</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">Tamil</h3>
+              <p class="text-gray-600">Native</p>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-
-    <section class="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-12 md:py-16">
-      <div class="max-w-4xl mx-auto px-4 text-center">
+  <!-- Contact Section -->
+  <section class="section hero-gradient text-white">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-8">
-          <i class="fas fa-envelope mr-3"></i>Let's Connect
+          Let's Connect
         </h2>
-        <p class="text-lg md:text-xl mb-8 text-blue-100">
+        <p class="text-xl mb-12 text-blue-100">
           Ready to bring your ideas to life? Let's discuss your next project!
         </p>
         
-        <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           <a href="mailto:joshuagenius2001@gmail.com" 
-            class="glass-card p-6 rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-200 group">
-            <i class="fas fa-envelope text-3xl mb-4 group-hover:text-blue-600"></i>
+            class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-white border-opacity-20 p-8 rounded-xl hover:bg-opacity-20 transition-all duration-300 group">
+            <i class="fas fa-envelope text-4xl mb-4 group-hover:scale-110 transition-transform duration-300"></i>
             <h3 class="text-xl font-semibold mb-2">Email Me</h3>
             <p class="break-all">joshuagenius2001@gmail.com</p>
           </a>
           
           <a href="tel:+919025761741" 
-            class="glass-card p-6 rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-200 group">
-            <i class="fas fa-phone text-3xl mb-4 group-hover:text-blue-600"></i>
+            class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-white border-opacity-20 p-8 rounded-xl hover:bg-opacity-20 transition-all duration-300 group">
+            <i class="fas fa-phone text-4xl mb-4 group-hover:scale-110 transition-transform duration-300"></i>
             <h3 class="text-xl font-semibold mb-2">Call Me</h3>
             <p>+91 90257 61741</p>
           </a>
         </div>
 
-        <div class="flex justify-center space-x-6">
-          <a href="https://www.linkedin.com/in/joshua-vimal-raj-r-3660a9254/" target="_blank" class="text-2xl hover:text-blue-300 transition-colors duration-200">
+        <div class="flex justify-center space-x-8">
+          <a href="https://www.linkedin.com/in/joshua-vimal-raj-r-3660a9254/" target="_blank" 
+            class="text-3xl hover:text-blue-300 hover:scale-110 transition-all duration-300">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="https://github.com/joshuagenius" target="_blank" class="text-2xl hover:text-blue-300 transition-colors duration-200">
+          <a href="https://github.com/joshuagenius" target="_blank" 
+            class="text-3xl hover:text-blue-300 hover:scale-110 transition-all duration-300">
             <i class="fab fa-github"></i>
           </a>
-          <a href="#" class="text-2xl hover:text-blue-300 transition-colors duration-200">
+          <a href="#" class="text-3xl hover:text-blue-300 hover:scale-110 transition-all duration-300">
             <i class="fab fa-twitter"></i>
           </a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer class="bg-gray-900 text-white py-8">
-      <div class="max-w-6xl mx-auto px-4 text-center">
-        <p class="text-gray-400">
-          © 2025 Joshua Vimal Raj R. Best Regards
-        </p>
-      </div>
-    </footer>
-  </div> 
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-8">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-400">
+        © 2025 Joshua Vimal Raj R. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Smooth Scroll to Top
-      function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      window.scrollToTop = scrollToTop; 
+    // Smooth scroll to top
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-      // Video Handling for Autoplay, Loop, Muted, and Playsinline
+    // Carousel functionality
+    let currentSlide = 0;
+    const totalSlides = 5;
+
+    function goToSlide(slideIndex) {
+      currentSlide = slideIndex;
+      const carousel = document.querySelector('.carousel');
+      const dots = document.querySelectorAll('.carousel-dot');
+      
+      carousel.style.transform = `translateX(-${slideIndex * 100}%)`;
+      
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === slideIndex);
+      });
+    }
+
+    // Auto-advance carousel
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      goToSlide(currentSlide);
+    }
+
+    // Start auto-carousel
+    setInterval(nextSlide, 4000);
+
+    // Video handling
+    document.addEventListener('DOMContentLoaded', () => {
       const videos = document.querySelectorAll('video');
-      const videoLazyLoadObserver = new IntersectionObserver((entries) => {
+      
+      const videoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           const video = entry.target;
-          video.muted = true;
-          video.loop = true;
-          video.setAttribute('playsinline', ''); 
-
           if (entry.isIntersecting) {
-            const sourceElement = video.querySelector('source');
-            const videoSrc = sourceElement ? sourceElement.getAttribute('src') : video.getAttribute('src');
-            
-            // Only set src and load if not already loaded to prevent re-loading
-            if (videoSrc && !video.currentSrc) {
-                if (sourceElement) {
-                    sourceElement.setAttribute('src', videoSrc);
-                } else {
-                    video.setAttribute('src', videoSrc);
-                }
-                video.load(); 
-            }
-
-            const playPromise = video.play();
-
-            if (playPromise !== undefined) {
-              playPromise.then(() => {
-                // Autoplay started successfully
-              }).catch(error => {
-                // Autoplay was prevented by the browser. This is common if user hasn't interacted.
-                // You might consider adding a play button overlay for these cases.
-                console.warn('Video autoplay prevented:', error.message);
-              });
-            }
+            video.play().catch(console.log);
           } else {
-            // Pause video when it's out of view to save resources
-            if (!video.paused) {
-              video.pause();
-            }
+            video.pause();
           }
         });
-      }, {
-        threshold: 0.1 // Trigger when 10% of the video is visible
-      });
+      }, { threshold: 0.5 });
 
       videos.forEach(video => {
-        videoLazyLoadObserver.observe(video);
+        video.muted = true;
+        video.loop = true;
+        videoObserver.observe(video);
       });
     });
-
   </script>
 </body>
-</html>
